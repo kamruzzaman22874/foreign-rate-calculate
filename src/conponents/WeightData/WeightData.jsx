@@ -1,17 +1,17 @@
 "use client"
 import TextField from '@mui/material/TextField';
 
-const WeightData = ({ setWeights }) => {
+const WeightData = ({ setWeight }) => {
   
 
-    
     return (
         <div>
             <div>
                 <TextField id="outlined-basic"
-                    sx={{ minWidth: 240, marginBottom: "20px" }}
-                    onChange={(e) => setWeights(e.target.value)}
+                    sx={{ minWidth: 400, marginBottom: "20px" }}
+                    onChange={(e) => setWeight(e.target.value)}
                     label="Weight"
+                    type='number'
                     variant="outlined" />
             </div>
         </div>

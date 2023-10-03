@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import * as Carries from "../getAllData/getAllData"
 import axios from "axios";
 
-const CarrierData = ({ setCarriess }) => {
+const CarrierData = ({ setCarrier }) => {
     const [carries, setCarries] = useState([])
     useEffect(() => {
         const fetchData = async () => {
@@ -23,10 +23,10 @@ const CarrierData = ({ setCarriess }) => {
     }, [])
     return (
         <div>
-            <FormControl sx={{ minWidth: 240, marginBottom: "20px" }}>
+            <FormControl sx={{ minWidth: 400, marginBottom: "20px" }}>
                 <InputLabel id="demo-simple-select-label">Carrier</InputLabel>
                 <Select
-                    onChange={(e) => setCarriess(e.target.value)}
+                    onChange={(e) => setCarrier(e.target.value)}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Carrier"

@@ -1,43 +1,50 @@
-
 "use client"
-import { Button, Typography } from "@mui/material"
+import { Button, Typography } from "@mui/material";
 import CountryData from "../CountryData/CountryData";
 import ServiceData from "../ServiceData/ServiceData";
 import CarrierData from "../CarrierData/CarrierData";
 import WeightData from "../WeightData/WeightData";
+import image from "../../assets/image/scs1.jpg"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import * as Rate from "../getAllData/getAllData"
+import * as Rate from "../getAllData/getAllData";
+import { getRateData } from "../getAllData/rateData";
+import Swal from "sweetalert2";
+import Image from "next/image";
 
 const FormControls = () => {
-    const [countrys, setCountrys] = useState("");
-    const [serviceses, setServiceses] = useState("");
-    const [carriess, setCarriess] = useState("");
-    const [weights, setWeights] = useState("")
-    const [total, setTotal] = useState({})
-    const [rate, setRate] = useState([])
+    const [country, setCountry] = useState("");
+    const [service, setService] = useState("");
+    const [carrier, setCarrier] = useState("");
+    const [weight, setWeight] = useState("");
+    const [total, setTotal] = useState({});
+    const [rate, setRate] = useState(0);
 
     const handleTotal = () => {
-        setTotal({ countrys, serviceses, carriess, weights: parseFloat(weights) })
+        if (country && service && carrier && weight) {
+            setTotal({ country, service, carrier, weight: parseFloat(weight) })
+        }
+        else {
+            Swal.fire({
+                position: 'middle',
+                icon: 'error',
+                title: 'Please Provide your information',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
     }
 
     // useEffect(() => {
     //     const fetchData = async () => {
     //         const queryResults = await axios.post(
     //             Rate.GRAPHQL_API, {
-    //             query: `
-    //             query GetRate($country: String!, $service: String!, $carrier: String!, $weight: Float!) {
-    //                 getRate(country: $country, service: $service, carrier: $carrier, weight: $weight) {
-    //                     result
-    //                 }
-    //                 }
-                
-    //             `,
+    //             query: Rate.GET_RATE_API,
     //             variables: total
     //         }
     //         )
     //         console.log(queryResults);
-    //         const result = queryResults.data.data.getRate.result.list;
+    //         const result = queryResults.data.data.getRate.result;
     //         setRate(result);
     //     }
     //     fetchData()
@@ -45,61 +52,39 @@ const FormControls = () => {
     // }, [total])
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const queryResults = await axios.post(
-                    'https://api-party-dashboard.sundarban.delivery/graphql',
-                    {
-                        query: `
-            query GetRate($country: String!, $service: String!, $carrier: String!, $weight: Float!) {
-              getRate(country: $country, service: $service, carrier: $carrier, weight: $weight) {
-                result
-              }
-            }
-          `,
-                        variables: total,
-                    }
-                );
-
-                if (queryResults.data.errors) {
-                    // Handle GraphQL errors
-                    console.error('GraphQL errors:', queryResults.data.errors);
-                    // You can set an error state or display an error message to the user
-                } else {
-                    // No errors, process the data
-                    const result = queryResults.data.data.getRate.result;
-                    setRate(result);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                // Handle network or other errors
-                // You can set an error state or display an error message to the user
-            }
-        };
-
-        fetchData();
+        getRateData(total)
+            .then((res) => {
+                console.log(res)
+                setRate(res.data.data.getRate.result);
+            })
+            .catch((err) => console.log("err", err));
     }, [total]);
 
 
-
-
-
-
     return (
-        <div style={{ marginTop: "15px", textAlign: "center" }}>
-            <Typography variant="h2" gutterBottom>
-                International Services <br />
-            </Typography>
+        <div>
+            <div style={{ marginTop: "15px", textAlign: "center" }}>
+                <Typography style={{ fontFamily: "sans-serif" }} variant="h4" gutterBottom>
+                    Our International Services <br />
+                </Typography>
+                <Typography style={{ marginTop: "0px", marginBottom: "10px", textAlign: "center" }}>Provide by sundarban courier service(Pvt.)Ltd</Typography>
+            </div>
 
-
-            <CountryData setCountrys={setCountrys} />
-            <ServiceData setServiceses={setServiceses} />
-            <CarrierData setCarriess={setCarriess} />
-            <WeightData setWeights={setWeights} />
-            <p>Total: {rate}</p>
-            <Button onClick={handleTotal}>Calculate</Button>
-
-
+            <div container spacing={2} sx={{ justifyContent: 'space-between'}} style={{display:"flex", alignItems:"center", marginLeft:"50px",paddingInline:"40px",paddingTop:"30px"}}>
+                <div style={{width:"50%"}}>
+                    <Image style={{width:"500px",height:"400px"}} src={image} alt=""></Image>
+                </div>
+                <div >
+                    <CountryData  setCountry={setCountry} />
+                    <ServiceData setService={setService} />
+                    <CarrierData setCarrier={setCarrier} />
+                    <WeightData setWeight={setWeight} />
+                   <div style={{textAlign:"center"}}>
+                        <p><span style={{ fontSize: "20px", color: "hotpink" }}>Total Cost : </span> <span style={{ fontSize: "20px", color: "green" }}>{rate} (BDT)</span></p>
+                        <Button style={{ marginTop: "20px", width: "full" }} variant="outlined" onClick={handleTotal}>Calculate</Button>
+                   </div>
+                </div>
+            </div>
         </div>
     );
 };

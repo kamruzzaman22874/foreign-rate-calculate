@@ -4,7 +4,7 @@ import axios from "axios";
 import * as Services from "../getAllData/getAllData"
 import { useEffect, useState } from "react";
 
-const ServiceData = ({ setServiceses }) => {
+const ServiceData = ({ setService }) => {
     const [services, setServices] = useState([])
 
     useEffect(() => {
@@ -23,10 +23,10 @@ const ServiceData = ({ setServiceses }) => {
     }, [])
     return (
         <div>
-            <FormControl sx={{ minWidth: 240, marginBottom: "20px" }}>
+            <FormControl sx={{ minWidth: 400, marginBottom: "20px" }}>
                 <InputLabel id="demo-simple-select-label">Service</InputLabel>
                 <Select
-                    onChange={(e) => setServiceses(e.target.value)}
+                    onChange={(e) => setService(e.target.value)}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Service"

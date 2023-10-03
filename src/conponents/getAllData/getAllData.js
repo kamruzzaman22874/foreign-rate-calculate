@@ -27,7 +27,6 @@ query GetServices {
 
 `
 
-
 export const GET_CARRIES_API = `
 query List {
   getCarriers {
@@ -39,13 +38,12 @@ query List {
   }
 }
 
-`
+`;
 
-export const GET_RATE_API = `
-query GetRate($country: String!, $service: String!, $carrier: String!, $weight: Float!) {
-  getRate(country: $country, service: $service, carrier: $carrier, weight: $weight) {
-    result
-  }
-}
-
-`
+// export const GET_RATE_API = `
+// query GetRate($country: String!, $service: String!, $carrier: String!, $weight: Float!) {
+//   getRate(country: $country, service: $service, carrier: $carrier, weight: $weight) {
+//     result
+//   }
+// }
+// `

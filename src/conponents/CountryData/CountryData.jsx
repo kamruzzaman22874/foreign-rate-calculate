@@ -1,11 +1,12 @@
 "use client"
-
+import image from "../../assets/image/scs1.jpg"
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import * as Countries from "../getAllData/getAllData"
+import Image from "next/image";
 
-const CountryData = ({ setCountrys }) => {
+const CountryData = ({ setCountry }) => {
 
     const [countrysData, setCountrysData] = useState([])
     useEffect(() =>{
@@ -25,10 +26,11 @@ const CountryData = ({ setCountrys }) => {
     } , [])
     return (
         <div>
-            <FormControl sx={{ minWidth: 240, marginBottom: "20px" }}>
+            
+            <FormControl sx={{ minWidth: 400, marginBottom: "20px" }}>
                 <InputLabel id="demo-simple-select-label">Country</InputLabel>
                 <Select
-                    onChange={(e) =>setCountrys(e.target.value)}
+                    onChange={(e) => setCountry(e.target.value)}
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     label="Country"

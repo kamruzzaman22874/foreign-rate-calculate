@@ -1,18 +1,14 @@
-import Image from 'next/image';
 // import SendIcon from '@mui/icons-material/Send';
 import  Button  from '@mui/material/Button';
-import logo from "@/assets/image/logo (3).png"
+import logo from "@/assets/image/scs.png"
 import SendIcon from '@mui/icons-material/Send';
+import Image from 'next/image';
 const Header = () => {
     return (
-        <nav>
-            <div class='bg-black' style={{ display: 'flex', justifyContent: 'space-between', backgroundColor:"pink", padding:"15px"}}>
-                <div>
-                    <Image width={50} height={50} src={logo} 
-                        style={{ borderRadius: '50%', backgroundColor:"[#3ff20]"}}
-                        alt="logo image" />
-                </div>
-                <Button variant="outlined" color='primary' >
+        <nav >
+            <div style={{ display: 'flex', boxShadow:"0 4px 6px rgba(0, 0, 0, 0.1)", justifyContent: 'space-between', paddingInline:"50px", padding:"10px 50px"}}>
+                <Image width={70} src={logo}></Image>
+                <Button  variant="outlined" color='primary' >
                     Calculate
                     <SendIcon/>
                 </Button>
