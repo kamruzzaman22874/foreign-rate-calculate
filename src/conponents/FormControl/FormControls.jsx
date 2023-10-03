@@ -18,7 +18,7 @@ const FormControls = () => {
     const [carrier, setCarrier] = useState("");
     const [weight, setWeight] = useState("");
     const [total, setTotal] = useState({});
-    const [rate, setRate] = useState(0);
+    const [rate, setRate] = useState("0");
 
     const handleTotal = () => {
         if (country && service && carrier && weight) {
@@ -80,7 +80,7 @@ const FormControls = () => {
                     <CarrierData setCarrier={setCarrier} />
                     <WeightData setWeight={setWeight} />
                    <div style={{textAlign:"center"}}>
-                        <p><span style={{ fontSize: "20px", color: "hotpink" }}>Total Cost : </span> <span style={{ fontSize: "20px", color: "green" }}>{rate} (BDT)</span></p>
+                        <p><span style={{ fontSize: "20px", color: "hotpink" }}>Total Cost : </span> <span style={{ fontSize: "20px", color: "green" }}>{rate ? rate: "service not available"} (BDT)</span></p>
                         <Button style={{ marginTop: "20px", width: "full" }} variant="outlined" onClick={handleTotal}>Calculate</Button>
                    </div>
                 </div>
